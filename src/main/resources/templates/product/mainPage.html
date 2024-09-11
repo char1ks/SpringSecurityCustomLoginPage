@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="RU">
+<head>
+    <meta charset="UTF-8">
+    <title>Список продуктов</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Список продуктов</h1>
+    <a th:href="@{/product/add}" class="btn btn-primary mt-3">Добавить новый продукт</a>
+    <table class="table mt-3">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Наименование</th>
+            <th>Цена</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${allProducts}">
+            <td th:text="${product.getId()}"></td>
+            <td th:text="${product.getNomination()}"></td>
+            <td th:text="${product.getPrice()}"></td>
+            <td>
+                <a th:href="@{/product/{id}(id=${product.getId()})}" class="btn btn-info">Посмотреть</a>
+                <a th:href="@{/product/{id}/edit(id=${product.getId()})}" class="btn btn-warning">Редактировать</a>
+                <form th:action="@{/product/{id}(id=${product.getId()})}" method="post" th:method="delete" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
